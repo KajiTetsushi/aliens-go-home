@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import { getCanvasPosition } from './utils/formulas';
-import Canvas from './components/Canvas';
+import Canvas, { id } from './components/Canvas';
 
 class App extends Component {
   componentDidMount() {
@@ -10,6 +10,13 @@ class App extends Component {
     setInterval(() => {
       self.props.moveObjects(self.canvasMousePosiiton);
     }, 10);
+
+    window.onresize = () => {
+      const cnv = document.getElementById(id);
+      cnv.style.width = `${window.innerWidth}px`;
+      cnv.style.height = `${window.innerHeight}px`;
+    };
+    window.onresize();
   }
 
   trackMouse = event => {
