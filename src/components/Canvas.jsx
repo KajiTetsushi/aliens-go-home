@@ -10,6 +10,7 @@ import Sky from './Sky';
 
 import CurrentScore from './CurrentScore';
 import Heart from './Heart';
+import StartGame from './StartGame';
 
 const Canvas = (props) => {
   // Position circle at the bottom (offset upwards by 100px) center of the screen.
@@ -43,6 +44,7 @@ const Canvas = (props) => {
       <FlyingObject position={{x: 150, y: -300}}/>
       <CurrentScore score={15} />
       <Heart position={{x: -300, y: 35}} />
+      <StartGame onClick={() => console.log('Aliens, Go Home!')} />
     </svg>
   );
 };
