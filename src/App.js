@@ -1,22 +1,39 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import * as Auth0 from 'auth0-web';
 
 import { getCanvasPosition } from './utils/formulas';
 import Canvas, { id } from './components/Canvas';
 
+Auth0.configure({
+  domain: 'kajitetsushi.auth0.com',
+  clientID: 'LkN09ik8wIakBx3ytVFyMQO5yv7tb5Ls',
+  redirectUri: 'http://localhost:3000/',
+  responseType: 'token id_token',
+  scope: 'openid profile manage:points',
+});
+
 class App extends Component {
   componentDidMount() {
     const self = this;
+
+    Auth0.handleAuthCallback();
+    Auth0.subscribe(auth => {
+      console.log(auth);
+    });
+
     setInterval(() => {
       self.props.moveObjects(self.canvasMousePosiiton);
     }, 10);
 
-    window.onresize = () => {
-      const cnv = document.getElementById(id);
-      cnv.style.width = `${window.innerWidth}px`;
-      cnv.style.height = `${window.innerHeight}px`;
-    };
+    window.onresize = this.resizeCanvas;
     window.onresize();
+  }
+
+  resizeCanvas = () => {
+    const cnv = document.getElementById(id);
+    cnv.style.width = `${window.innerWidth}px`;
+    cnv.style.height = `${window.innerHeight}px`;
   }
 
   trackMouse = event => {
