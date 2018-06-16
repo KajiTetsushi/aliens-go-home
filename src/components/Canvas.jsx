@@ -46,19 +46,33 @@ const Canvas = (props) => {
       <CannonPipe rotation={props.angle} />
       <CannonBase />
       <CannonBall position={{x: 0, y: -100}}/>
-      <FlyingObject position={{x: -150, y: -300}}/>
-      <FlyingObject position={{x: 150, y: -300}}/>
+      {props.gameState.started && (
+        <g>
+          <FlyingObject position={{x: -150, y: -300}}/>
+          <FlyingObject position={{x: 150, y: -300}}/>
+        </g>
+      )}
       <CurrentScore score={15} />
       <Heart position={{x: -300, y: 35}} />
-      <StartGame onClick={() => console.log('Aliens, Go Home!')} />
-      <Title />
+      {!props.gameState.started && (
+        <g>
+          <StartGame onClick={props.startGame} />
+          <Title />
+        </g>
+      )}
     </svg>
   );
 };
 
 Canvas.propTypes = {
   angle: PropTypes.number.isRequired,
+  gameState: PropTypes.shape({
+    started: PropTypes.bool.isRequired,
+    kills: PropTypes.number.isRequired,
+    lives: PropTypes.number.isRequired,
+  }).isRequired,
   trackMouse: PropTypes.func.isRequired,
+  startGame: PropTypes.func.isRequired,
 };
 
 export default Canvas;
