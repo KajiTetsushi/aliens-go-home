@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import CannonBall from './CannonBall';
 import CannonBase from './CannonBase';
 import CannonPipe from './CannonPipe';
 import Ground from './Ground';
@@ -15,6 +16,7 @@ const Canvas = (props) => {
     window.innerHeight        // height : canvas height
   ];
 
+  // SVG puts its elements down in layers (so, it's an ogre, then?).
   return (
     <svg
       id="aliens-go-home-canvas"
@@ -26,6 +28,7 @@ const Canvas = (props) => {
       <Ground />
       <CannonPipe rotation={props.angle} />
       <CannonBase />
+      <CannonBall position={{x: 0, y: -100}}/>
     </svg>
   );
 };
