@@ -31,7 +31,7 @@ const SignIn = (props) => {
     <g filter="url(#shadow)">
       <rect {...button} />
       <text {...text}>
-        SignIn to participate!
+        Sign in to participate!
       </text>
     </g>
   );
